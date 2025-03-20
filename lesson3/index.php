@@ -61,5 +61,38 @@
 
 
   ?>
+  $whileVar =1;
+  while($whileVar >= 5){
+    echo "<br>Numri is $whileVar </br>";
+    $whilevar++;
+  }
+   $dowhile =1;
+   do{
+    echo "Number is :$dowhile <br>";
+    $dowhile++;
+   }while($dowhile < 5);
+
+   for($forVar =0; $forVar <=10; $forVar++){
+    echo "Numri is :$forVar <br>";
+   }
+
+   
+  
+  ?>
+  <?php
+    $cars =array("BMW", "Audi", "Mercedes", "Toyota");
+   foreach($cars as $value){
+    echo "$value <br>";
+   }
+     ?>
+     <?php
+     $mosha = array("Arianit" =>"18", "Olt" =>"17", "Iart" =>"18", "Kron" =>"17");
+     foreach($mosha as $x1 => $val){
+      echo "$x1 is $val years old <br>";
+     }
+
+
+
+  ?>
 </body>
 </html>
