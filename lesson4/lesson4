@@ -1,0 +1,14 @@
+<?php
+//  phpinfo();
+//  $x="Hello"
+//  print_r($x);
+
+$x="Hello World";
+echo gettype($x);
+$y=5;
+echo gettype($y);
+$z=10.5;
+echo gettype($z);
+
+
+?>
