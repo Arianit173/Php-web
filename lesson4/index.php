@@ -59,18 +59,94 @@
 ?>
 
 <?php 
-function divisible(){
+// function divisible(){
     
-    if(($n % 2) == 0){
-        return"$n eshte e plotpjestueshme 2 ";
-    }else{
-        return "$n nuk eshte e plotpjestueshme me 2";
-    }
-}
+//     if(($n % 2) == 0){
+//         return"$n eshte e plotpjestueshme 2 ";
+//     }else{
+//         return "$n nuk eshte e plotpjestueshme me 2";
+//     }
+// }
 
-print_r(divisible(4). "<br>");
-print_r(divisible(35). "<br>");
-print_r(divisible(16). "<br>");
-print_r(divisible(3). "<br>");
+// print_r(divisible(4). "<br>");
+// print_r(divisible(35). "<br>");
+// print_r(divisible(16). "<br>");
+// print_r(divisible(3). "<br>");
+
+?>
+
+<?php 
+// $x=5;
+
+// function Draw(){
+//     $y=8;
+//     echo $y;
+// }
+// echo "\n, $x";
+// Draw();
+
+
+?>
+
+<?php 
+// $x=5;
+// $y=10;
+
+// function sum(){
+//     global $x , $y;
+//     $y=$x + $y;
+// }
+// sum();
+// echo $y;
+?>
+
+<?php 
+// function Counter(){
+//     static $counter = 0;
+//     $counter++;
+//     echo "Vlera e counter eshte: $counter  <br>";
+// }
+// Counter();
+// Counter();
+// Counter();
+// Counter();
+// Counter();
+
+?>
+
+<?php 
+
+// // $sports =array('Real Madrid', 'Barcelona', 'Arsenal', 'Bayern');
+// $sports =['Real Madrid', 'Barcelona', 'Arsenal', 'Bayern'];
+// // echo $sports[2]
+//  echo end($sports);
+//  echo count($sports);
+
+
+?>
+
+<?php 
+// $sports= ['Real Madrid', 'Barcelona', 'Arsenal', 'Bayern'];
+
+// $len=count($sports);
+
+// for($i=0; $i<$len; $i++){
+//     echo $sports[$i], "\n";
+// }
+
+?>
+
+<?php 
+// $sports= ['Real Madrid', 'Barcelona', 'Arsenal', 'Bayern'];
+
+// array_push($sports , 'Benfica');
+// var_dump($sports);
+
+?>
+<?php 
+$sports= ['Real Madrid', 'Barcelona', 'Arsenal', 'Bayern'];
+
+array_pop($sports);
+var_dump($sports);
 
 ?>
