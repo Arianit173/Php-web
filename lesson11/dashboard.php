@@ -32,6 +32,7 @@
             <th>name</th>
             <th>surname</th>
             <th>email</th>
+            <th>update</th>
 
 
         </thead>
@@ -56,7 +57,10 @@
                     <?=$user['email']?>
                 </td>
                 <td>
-                   <?= "<a href="delete.php?id=1">Delete</a>"?>
+                <?= "<a href='delete.php?id=$user[id]'>Delete</a>"?>
+                </td>
+                <td>
+                <?= "<a href='update.php?id=$user[id]'>Update</a>"?>
                 </td>
             </tr>
           <?php
