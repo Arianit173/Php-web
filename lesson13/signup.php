@@ -1,25 +1,33 @@
-<?php include("header.php")?>
-    <div class="signup d-flex flex-column justify-content-center align-items-center h-100">
-        <form action="signupLogic.php" method="post" class='form-signin w-25'>
-            <h1 class='h33 mb-3 font-weight-normal'>Please sign up</h1>
-            <label for="inputEmail" class='sr-only'>Name</label>
-            <input type="text" id='inputEmail' class='form-control' placeholder='name' name='name' required autofocus>
+<?php include("header.php"); ?>
 
-            <label for="inputEmail" class='sr-only'>Surname</label>
-            <input type="text" id='inputEmail' class='form-control' placeholder='surname' name='surname' required autofocus>
+<div class="signup">
+		
+	<form class="form-signin" action="signupLogic.php" method="post">
+		
+		<h1 class="h3 mb-3 font-weight-normal">Please sign up</h1>
 
-            <label for="inputEmail" class='sr-only'>Username</label>
-            <input type="text" id='inputEmail' class='form-control' placeholder='username' name='username' required autofocus>
+		<label for="inputEmail" class="sr-only">Name</label>
+		<input type="text" id="inputEmail" class="form-control" placeholder="Name" name="name" required autofocus>
 
-            <label for="inputEmail" class='sr-only'>Email</label>
-            <input type="email" id='inputEmail' class='form-control' placeholder='email' name='email' required autofocus>
+		<label for="inputEmail" class="sr-only">Surname</label>
+		<input type="text" id="inputEmail" class="form-control" placeholder="Surname" name="surname" required autofocus>
 
-            <label for="inputEmail" class='sr-only'>Password</label>
-            <input type="password" id='inputEmail' class='form-control mb-3' placeholder='password' name='password' required autofocus>
+		<label for="inputEmail" class="sr-only">Username</label>
+		<input type="text" id="inputEmail" class="form-control" placeholder="Username" name="username" required autofocus>
+		
 
-            <button class='btn btn-lg btn-primary btn-block' type='sumbit' name='sumbit'>Sign Up</button>
+		<label for="inputEmail" class="sr-only">Email</label>
+		<input type="email" id="inputEmail" class="form-control" placeholder="Email" name="email" required autofocus>
 
-        </form>
-    </div>
+		<label for="inputPassword" class="sr-only">Password</label>
+		<input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
 
-    <?php include("footer.php")?>
+		<button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">Sign up</button>
+
+		<small>Already have account? <a href="login.php">Log In</a></small>
+
+		<p class="mt-5 mb-3 text-muted">Digital School &copy; 2023</p>
+	</form>
+</div>
+
+<?php include("footer.php"); ?>
