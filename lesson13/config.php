@@ -3,7 +3,7 @@
 $user="root";
 $pass="";
 $server="localhost";
-$dbname="db";
+$dbname="arianit";
 
 try {
 	

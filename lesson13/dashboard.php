@@ -1,38 +1,41 @@
-<?php 
+<?php
+session_start();
 include_once "config.php";
 if(empty($_SESSION['username'])){
-  header('Location:login.php');
+    header('Location:login.php');
 }
 
-$sql ="SELECT * FROM users";
+$sql = "SELECT * FROM users";
 $selectUsers =$conn -> prepare($sql);
 $selectUsers ->execute();
 
 $users_data =$selectUsers ->fetchAll();
-
-
-
-
 ?>
 
 
 <?php include("header.php")?>
 
 <style>
-table,tr,th,td {
-    border:1px solid black;
+    table,tr,th,td{
+        border:1px solid black;
+    }
 
-}
-table,tr,td{
-  border-collapse:collapse;
-}
-td{
-  padding:15px;
-}
+    table,tr,td{
+        border-collapse:collapse;
+    }
 
+    td{
+        padding:15px;
+    }
 </style>
+
+
+
+
+
+<?php include("header.php")?>
   <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Welcome <i><?php echo  $_SESSION['username']; ?></i></a>
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Welcome <i><?php echo $_SESSION['username']?></i></a>
     <ul class="navbar-nav px-3">
       <li class="nav-item text-nowrap">
         <a class="nav-link" href="logout.php">Sign out</a>
@@ -64,40 +67,46 @@ td{
       </nav>
 
       <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-        <?php 
+        <?php
         include_once "config.php";
-        $getUsers= $conn ->prepare("SELECT * FROM users");
+        $getUsers=$conn ->prepare("SELECT * FROM users");
         $getUsers ->execute();
-      $users = $getUsers ->fetchAll();
-
+        $users =$getUsers -> fetchAll();
         ?>
-        <table>
+
+              <table>
           <thead>
             <tr>
-              <th>id</th>
+              <th>ID</th>
               <th>Username</th>
               <th>Name</th>
               <th>Surname</th>
               <th>Email</th>
-              <th>Uptade</th>
+              <th>Update</th>
             </tr>
           </thead>
-
-          <?php 
-          foreach ($users as $user)
+          <?php
+            foreach ($users as $user ) {
           ?>
-
           <tbody>
-            <tr>
-              <td><?= $user['id']?></td>
-              <td><?= $user['username']?></td>
-              <td><?= $user['name']?></td>
-              <td><?= $user['surname']?></td>
-              <td><?= $user['email']?></td>
+            <tr> 
+              <td> <?= $user['id'] ?> </td>
+              <td> <?= $user['username'] ?> </td>
+              <td> <?= $user['name']  ?> </td> 
+              <td> <?= $user['surname']  ?> </td> 
+              <td> <?= $user['email']  ?> </td>
+              <td> <?= "<a href='delete.php?id=$user[id]'> Delete</a>| <a href='profile.php?id=$user[id]'> Update </a>"?></td>
             </tr>
+          
+            <?php 
+              }
+            ?>
           </tbody>
         </table>
-      </main>
-    </div>
+      </div>
+    </main>
   </div>
-  <?php include("footer.php")?>
+</div>
+
+
+<?php include("footer.php"); ?>
