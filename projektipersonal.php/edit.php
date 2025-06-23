@@ -1,65 +1,36 @@
-<?php
-session_start();
-require 'config.php';
+<?php include "session.php"; include "config.php";
+if (!isset($_SESSION["user"])) header("Location: login.php");
 
-if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php');
-    exit;
-}
+$id = $_GET["id"];
+$stmt = $conn->prepare("SELECT * FROM posts WHERE id = ?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$post = $stmt->get_result()->fetch_assoc();
 
-if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-    header('Location: index.php');
-    exit;
-}
+if (!$post || $_SESSION["user"] !== $post["author"]) die("Nuk ke leje!");
 
-$post_id = (int)$_GET['id'];
-
-// Fetch post and check ownership
-$stmt = $pdo->prepare('SELECT * FROM posts WHERE id = ?');
-$stmt->execute([$post_id]);
-$post = $stmt->fetch();
-
-if (!$post || $post['user_id'] !== $_SESSION['user_id']) {
-    header('Location: index.php');
-    exit;
-}
-
-$message = '';
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $title = trim($_POST['title']);
-    $content = trim($_POST['content']);
-    if ($title && $content) {
-        $stmt = $pdo->prepare('UPDATE posts SET title = ?, content = ? WHERE id = ?');
-        $stmt->execute([$title, $content, $post_id]);
-        header('Location: view.php?id=' . $post_id);
-        exit;
-    } else {
-        $message = 'Please fill in all fields.';
-    }
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $title = $_POST["title"];
+  $content = $_POST["content"];
+  $stmt = $conn->prepare("UPDATE posts SET title=?, content=? WHERE id=?");
+  $stmt->bind_param("ssi", $title, $content, $id);
+  $stmt->execute();
+  header("Location: index.php");
 }
 ?>
-
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Edit Post</title>
-    <style>
-        body { font-family: Arial; max-width: 600px; margin: 20px auto; padding: 0 15px; }
-        input, textarea, button { width: 100%; padding: 10px; margin: 8px 0; border-radius: 4px; border: 1px solid #ccc; }
-        button { background: #007bff; color: white; border: none; cursor: pointer; }
-        button:hover { background: #0056b3; }
-        .message { color: red; }
-        a { text-decoration:none; color:#007bff; }
-        a:hover { text-decoration: underline; }
-    </style>
-</head>
-<body>
-    <h1>Edit Post</h1>
-    <p><a href="view.php?id=<?= $post_id ?>">Back to Post</a></p>
-
-    <?php if ($message): ?>
-        <p class="message"><?= htmlspecialchars($message) ?></p>
-    <?php endif; ?>
-
-    <form met
+<html><head><title>Edit Post</title>
+<style>
+body { font-family: Arial; background: #eee; padding: 20px; }
+.container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 10px; }
+input, textarea, button { width: 100%; padding: 10px; margin-top: 10px; }
+</style></head><body>
+<div class="container">
+<h2>Edit Post</h2>
+<form method="post">
+  <input name="title" required value="<?= htmlspecialchars($post['title']) ?>">
+  <textarea name="content" required rows="6"><?= htmlspecialchars($post['content']) ?></textarea>
+  <button type="submit">Update</button>
+</form>
+<p><a href="index.php">← Back</a></p>
+</div></body></html>

@@ -1,16 +1,11 @@
-<?php 
-$user ="root";
-$pass ="";
-$server ="localhost";
-$dbname ="blog_db";
+<?php
+$host = "localhost";
+$user = "root";
+$pass = "";
+$db   = "blogdb";
 
-try{
-   $conn = new PDO("mysql:host=$server;dbname=$dbname", $user,$pass);
-
-}catch (PDOException $e) {
-    echo "Error: " .$e ->getMessage();
+$conn = new mysqli($host, $user, $pass, $db);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
-
-
-
 ?>

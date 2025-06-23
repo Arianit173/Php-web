@@ -1,27 +1,18 @@
-<?php
-session_start();
-require 'config.php';
+<?php include "session.php"; include "config.php";
+if (!isset($_SESSION["user"])) header("Location: login.php");
 
-if (!isset($_SESSION['user_id']) || !isset($_GET['id']) || !is_numeric($_GET['id'])) {
-    header('Location: index.php');
-    exit;
-}
+$id = $_GET["id"];
+$stmt = $conn->prepare("SELECT author FROM posts WHERE id = ?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$stmt->bind_result($author);
+$stmt->fetch();
+$stmt->close();
 
-$post_id = (int)$_GET['id'];
+if ($_SESSION["user"] !== $author) die("Nuk ke leje me fshi!");
 
-// Check ownership
-$stmt = $pdo->prepare('SELECT user_id FROM posts WHERE id = ?');
-$stmt->execute([$post_id]);
-$post = $stmt->fetch();
+$stmt = $conn->prepare("DELETE FROM posts WHERE id = ?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
 
-if (!$post || $post['user_id'] !== $_SESSION['user_id']) {
-    header('Location: index.php');
-    exit;
-}
-
-// Delete post
-$stmt = $pdo->prepare('DELETE FROM posts WHERE id = ?');
-$stmt->execute([$post_id]);
-
-header('Location: index.php');
-exit;
+header("Location: index.php");
