@@ -18,6 +18,7 @@ $stmt = $conn->prepare("SELECT author FROM posts WHERE id = ?");
 $stmt->bind_param("i", $id);
 $stmt->execute();
 $stmt->bind_result($author);
+
 if (!$stmt->fetch()) {
   $stmt->close();
   die("Postimi nuk u gjet.");

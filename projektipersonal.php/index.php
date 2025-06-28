@@ -1,8 +1,12 @@
-<?php include "session.php"; include "config.php";
+<?php
+include "session.php";
+include "config.php";
+
 if (!isset($_SESSION["user"])) {
   header("Location: login.php");
   exit();
 }
+
 $result = $conn->query("SELECT * FROM posts ORDER BY created_at DESC");
 ?>
 <!DOCTYPE html>
@@ -40,23 +44,31 @@ $result = $conn->query("SELECT * FROM posts ORDER BY created_at DESC");
     }
 
     .actions {
-      margin-bottom: 20px;
+      margin: 10px 0;
     }
 
     .actions a {
       display: inline-block;
-      padding: 10px 18px;
-      margin: 5px 10px 5px 0;
-      background: #ff4081;
+      padding: 8px 16px;
+      margin: 5px 8px 0 0;
+      background-color: #ff4081;
       color: white;
-      border-radius: 8px;
       text-decoration: none;
+      border-radius: 8px;
       font-weight: bold;
-      transition: 0.3s;
+      transition: background-color 0.3s;
     }
 
     .actions a:hover {
-      background: #e91e63;
+      background-color: #e91e63;
+    }
+
+    .actions a.delete {
+      background-color: #f44336;
+    }
+
+    .actions a.delete:hover {
+      background-color: #c62828;
     }
 
     .post {
@@ -110,18 +122,25 @@ $result = $conn->query("SELECT * FROM posts ORDER BY created_at DESC");
 <body>
   <div class="container">
     <h2>Welcome, <?= htmlspecialchars($_SESSION["user"]) ?>!</h2>
+
     <div class="actions">
       <a href="logout.php">Logout</a>
       <a href="post.php">+ New Post</a>
-       <a href="delete.php?id=<?= $row['id'] ?>" onclick="return confirm('A je i sigurt që don me fshi postimin?')">Delete</a>
     </div>
 
     <h3>Blog Posts</h3>
+
     <?php while($row = $result->fetch_assoc()): ?>
       <div class="post">
         <h4><?= htmlspecialchars($row['title']) ?></h4>
         <p><?= nl2br(htmlspecialchars($row['content'])) ?></p>
         <small>By <?= htmlspecialchars($row['author']) ?> | <?= $row['created_at'] ?></small>
+
+        <?php if ($_SESSION["user"] === $row["author"]): ?>
+          <div class="actions">
+            <a href="delete.php?id=<?= $row['id'] ?>" class="delete" onclick="return confirm('A je i sigurt që don me fshi postimin?')">Delete</a>
+          </div>
+        <?php endif; ?>
       </div>
     <?php endwhile; ?>
   </div>
